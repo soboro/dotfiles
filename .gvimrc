@@ -8,8 +8,9 @@ set number
 set nobackup
 set visualbell t_vb=
 set nowrapscan
-set columns=100
+set columns=200
 set lines=48
 set "background=light
 set background=dark
-colorscheme solarized
+"colorscheme solarized
+colorscheme molokai
