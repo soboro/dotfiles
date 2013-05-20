@@ -24,6 +24,11 @@ set statusline=%F%m%r%h%w\ [FORMAT:%{&ff}]\ [TYPE:%Y]\ [POS:%l,%v](%p%%)
 set t_Co=256
 colorscheme molokai
 
+if has('gui_running')
+  nnoremap <C-Tab>   gt
+  nnoremap <C-S-Tab> gT
+endif
+
 " 挿入モード時の色指定
 " https://github.com/fuenor/vim-statusline/blob/master/insert-statusline.vim
 if !exists('g:hi_insert')
