@@ -119,7 +119,7 @@ filetype off
 set rtp+=~/.vim/neobundle.vim.git
 if has('vim_starting')
 	set runtimepath+=~/.vim/neobundle.vim.git
-	call neobundle#rc(expand('~/.vim'))
+	call neobundle#rc(expand('~/.vim/bundle'))
 endif
 
 	NeoBundle 'scrooloose/nerdtree'
