@@ -1,27 +1,27 @@
-set autoindent 
-set backup
-set backupdir=~/.vim/backup/
-set clipboard=unnamed
-set nocompatible
-set directory=~/.vim/swap/
-set incsearch
-set number
-set showmatch
-set noexpandtab
-"set smarttab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=0
-set textwidth=0
-set wildmenu wildmode=list:full
-set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
-set grepprg=grep\ -nh
-syntax enable
+		set autoindent 
+		set backup
+		set backupdir=~/.vim/backup/
+		set clipboard=unnamed
+		set nocompatible
+		set directory=~/.vim/swap/
+		set incsearch
+		set number
+		set showmatch
+		set noexpandtab
+		"set smarttab
+		set tabstop=4
+		set shiftwidth=4
+		set softtabstop=0
+		set textwidth=0
+	set wildmenu wildmode=list:full
+	set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
+	set grepprg=grep\ -nh
+	syntax enable
 
-set laststatus=2
-set statusline=""
-set statusline+=\ [POS:%l,%v]/%L
-set statusline+=%=
+	set laststatus=2
+	set statusline=""
+	set statusline+=\ [POS:%l,%v]/%L
+	set statusline+=%=
 set statusline+=%F%m%r%h%w
 set statusline+=\ 
 set statusline+=%y
@@ -31,9 +31,10 @@ set t_Co=256
 
 set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
-colorscheme molokai
+"colorscheme molokai
+colorscheme hybrid
 
-"
+"""""""""""""""""""""""""""""""""""""
 "key maps
 "
 "<ESC>2回で検索結果のクリア
@@ -44,17 +45,13 @@ nnoremap <C-S-Tab> gT
 "xでの削除をレジスタに入れない
 nnoremap x "_x
 
+""""""""""""""""""""""""""""""""""""""
+
 "if has('gui_running')
 "	set background=light
 "else
 "	set background=dark
 "endif
-
-"起動時にファイルの指定がなければNERDTreeを実行
-let file_name=expand("%")
-if has('vim_starting') && file_name==""
-	autocmd VimEnter * NERDTree ./
-endif
 
 " 挿入モード時の色指定
 " https://github.com/fuenor/vim-statusline/blob/master/insert-statusline.vim
@@ -135,3 +132,36 @@ filetype plugin indent on
 if filereadable(expand('~/.vimrc.local'))
 	source ~/.vimrc.local
 endif
+
+"起動時にファイルの指定がなければNERDTreeを実行
+let file_name=expand("%")
+if has('vim_starting') && file_name==""
+	autocmd VimEnter * NERDTree ./
+endif
+
+" カーソルが外れているときは自動的にnerdtreeを隠す
+function! ExecuteNERDTree()
+	"b:nerdstatus = 1 : NERDTree 表示中
+	"b:nerdstatus = 2 : NERDTree 非表示中
+ 
+	if !exists('g:nerdstatus')
+		execute 'NERDTree ./'
+		let g:windowWidth = winwidth(winnr())
+		let g:nerdtreebuf = bufnr('')
+		let g:nerdstatus = 1 
+ 
+	elseif g:nerdstatus == 1 
+		execute 'wincmd t'
+		execute 'vertical resize' 0 
+		execute 'wincmd p'
+		let g:nerdstatus = 2 
+	elseif g:nerdstatus == 2 
+		execute 'wincmd t'
+		execute 'vertical resize' g:windowWidth
+		let g:nerdstatus = 1 
+ 
+	endif
+endfunction
+" 隠しファイルを表示
+let g:NERDTreeShowHidden = 1
+noremap <c-e> :<c-u>:call ExecuteNERDTree()<cr>

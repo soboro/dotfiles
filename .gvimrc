@@ -12,5 +12,6 @@ set columns=200
 set lines=64
 set "background=light
 set background=dark
-"colorscheme solarized
-colorscheme molokai
+
+cnoremap W <Nop>
+
