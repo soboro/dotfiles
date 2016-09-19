@@ -1,29 +1,36 @@
-		set autoindent 
-		set backup
-		set backupdir=~/.vim/backup/
-		set clipboard=unnamed
-		set nocompatible
-		set directory=~/.vim/swap/
-		set incsearch
-		set number
-		set showmatch
-		set noexpandtab
-		"set smarttab
-		set tabstop=4
-		set shiftwidth=4
-		set softtabstop=0
-		set textwidth=0
-	set wildmenu wildmode=list:full
-	set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
-	set grepprg=grep\ -nh
-	syntax enable
+"============================================================
+" .vimrc
+" auther : soboro
+"============================================================
 
-	set laststatus=2
-	set statusline=""
-	set statusline+=\ [POS:%l,%v]/%L
-	set statusline+=%=
-set statusline+=%F%m%r%h%w
-set statusline+=\ 
+" Basic settings """"""""""""""""""""""""""""""""""""""""""""
+
+set autoindent 
+set backup
+set backupdir=~/.vim/backup/
+set clipboard=unnamed
+set nocompatible
+set directory=~/.vim/swap/
+set incsearch
+set hlsearch
+set number
+set showmatch
+set noexpandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=0
+set textwidth=0
+set wildmenu wildmode=list:full
+set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
+set grepprg=grep\ -nh
+
+" status line
+set laststatus=2
+set statusline=""
+set statusline+=\ [line:%l\ /\ %L]
+set statusline+=\ %F
+set statusline+=\ %h\ r\ %w\ %m
+set statusline+=%=
 set statusline+=%y
 set statusline+=%{'['.(&fenc!=''?&fenc:&enc).'/'.&ff.']'}
 
@@ -31,27 +38,30 @@ set t_Co=256
 
 set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
-"colorscheme molokai
-colorscheme hybrid
 
-"""""""""""""""""""""""""""""""""""""
-"key maps
-"
+syntax enable
+filetype plugin indent on
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Key maps """""""""""""""""""""""""""""""""""""""""""""""""
+
 "<ESC>2回で検索結果のクリア
 nnoremap <ESC><ESC> :nohlsearch<CR>
+
 "タブの移動
 nnoremap <C-Tab>   gt
 nnoremap <C-S-Tab> gT
+
 "xでの削除をレジスタに入れない
 nnoremap x "_x
 
-""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"if has('gui_running')
-"	set background=light
-"else
-"	set background=dark
-"endif
+" Color settings """""""""""""""""""""""""""""""""""""""""""
+
+" color scheme
+colorscheme hybrid
 
 " 挿入モード時の色指定
 " https://github.com/fuenor/vim-statusline/blob/master/insert-statusline.vim
@@ -93,26 +103,24 @@ function! s:GetHighlight(hi)
 	return hl
 endfunction
 
-"罫線を引く
+" カーソル行のハイライト設定
+
+set cursorline
+
 augroup cch
 	autocmd! cch
 	autocmd WinLeave * set nocursorline
-	autocmd WinLeave * set nocursorcolumn
 	autocmd WinEnter,BufRead * set cursorline
-	autocmd WinEnter,BufRead * set cursorcolumn
 augroup END
 
-highlight CursorLine cterm=none ctermbg=black guibg=lightgray
-highlight CursorColumn ctermbg=black guibg=lightgray
+hi clear CursorLine
+highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+highlight CursorLine gui=underline guifg=NONE guibg=NONE
 
-""vundle
-"filetype off
-"set rtp+=~/.vim/vundle.git/
-"call vundle#rc()
-"Bundle "git://github.com/scrooloose/nerdtree.git"
-"filetype plugin indent on "required!
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"NeoBundle
+" NeoBundle """""""""""""""""""""""""""""""""""""""""""""""""
+
 set nocompatible
 filetype off
 
@@ -122,16 +130,20 @@ if has('vim_starting')
 	call neobundle#rc(expand('~/.vim/bundle'))
 endif
 
-	NeoBundle 'scrooloose/nerdtree'
+" Bundles
+NeoBundle 'scrooloose/nerdtree'
 
-filetype plugin indent on
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"
-"追加ファイルの読み込み
-"
+" Load additional files """"""""""""""""""""""""""""""""""""
+
 if filereadable(expand('~/.vimrc.local'))
 	source ~/.vimrc.local
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" NERDTree """""""""""""""""""""""""""""""""""""""""""""""""
 
 "起動時にファイルの指定がなければNERDTreeを実行
 let file_name=expand("%")
@@ -162,6 +174,10 @@ function! ExecuteNERDTree()
  
 	endif
 endfunction
+
 " 隠しファイルを表示
 let g:NERDTreeShowHidden = 1
 noremap <c-e> :<c-u>:call ExecuteNERDTree()<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
