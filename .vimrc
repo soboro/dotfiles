@@ -11,14 +11,20 @@ set backupdir=~/.vim/backup/
 set clipboard=unnamed
 set nocompatible
 set directory=~/.vim/swap/
+
 set incsearch
 set hlsearch
-set number
+
+
 set showmatch
+set matchtime=1
+
 set noexpandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0
+
+set number
 set textwidth=0
 set wildmenu wildmode=list:full
 set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
