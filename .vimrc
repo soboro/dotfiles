@@ -4,17 +4,20 @@
 "============================================================
 
 " Basic settings """"""""""""""""""""""""""""""""""""""""""""
+set noautoindent
+set nosmartindent
+"set autoindent
+"set smartindent
 
-set autoindent 
 set backup
 set backupdir=~/.vim/backup/
 set clipboard=unnamed
 set nocompatible
 set directory=~/.vim/swap/
+set undodir=~/.vim/undo
 
 set incsearch
 set hlsearch
-
 
 set showmatch
 set matchtime=1
@@ -44,6 +47,12 @@ set t_Co=256
 
 set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+
+"Cursor shape
+let &t_ti.="\e[1 q"
+let &t_SI.="\e[5 q"
+let &t_EI.="\e[1 q"
+let &t_te.="\e[0 q"
 
 syntax enable
 filetype plugin indent on
@@ -122,5 +131,29 @@ augroup END
 hi clear CursorLine
 highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
 highlight CursorLine gui=underline guifg=NONE guibg=NONE
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" auto complete
+set completeopt=menuone
+for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
+	  exec "imap " . k . " " . k . "<C-N><C-P>"
+endfor
+imap <expr> <TAB> pumvisible() ? "\<Down>" : "\<Tab>"
+
+" like XCode
+"hi Pmenu ctermbg=250
+"hi Pmenu ctermfg=233
+"hi PmenuSel ctermbg=26
+"hi PmenuSel ctermfg=252
+
+" Dark-Orange
+hi Pmenu ctermbg=234
+hi Pmenu ctermfg=39
+hi PmenuSel ctermbg=130
+hi PmenuSel ctermfg=252
+
+hi PmenuSbar ctermbg=2
+hi PmenuThum ctermbg=3
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
