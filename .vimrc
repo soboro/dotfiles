@@ -4,10 +4,6 @@
 "============================================================
 
 " Basic settings """"""""""""""""""""""""""""""""""""""""""""
-set noautoindent
-set nosmartindent
-"set autoindent
-"set smartindent
 
 set backup
 set backupdir=~/.vim/backup/
@@ -22,10 +18,12 @@ set hlsearch
 set showmatch
 set matchtime=1
 
-set noexpandtab
+set noautoindent
+set nosmartindent
 set tabstop=4
 set shiftwidth=4
-set softtabstop=0
+set softtabstop=4
+set expandtab
 
 set number
 set textwidth=0
@@ -71,6 +69,14 @@ nnoremap <C-S-Tab> gT
 "xでの削除をレジスタに入れない
 nnoremap x "_x
 
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
+inoremap [<Enter> []<Left><CR><ESC><S-o>
+inoremap (<Enter> ()<Left><CR><ESC><S-o>
+inoremap [ []<Left>
+inoremap { {}<Left>
+inoremap ( ()<Left>
+inoremap ' ''<Left>
+inoremap " ""<Left>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Color settings """""""""""""""""""""""""""""""""""""""""""
