@@ -1,6 +1,8 @@
 .DS_Store
 .vim/backup/
 .vim/swap/
+.vim/dein/.cache
 *.un~
 *.old
 *.org
+state_vim.vim

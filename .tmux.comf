@@ -1,27 +1,29 @@
+# key repeat time
+set -g repeat-time 2000
 
-#key bindings
-#unbind C-z
-#set -g prefix C-z
-#unbind C-b
-
-#reload settings
+# reload settings
 bind r source-file ~/.tmux.conf \; display "Reloaded!"
 
-#key stroke
+# key stroke
 set -sg escape-time 1
 
-#key bindings
+# key bindings
+unbind C-Space
+set -g prefix C-Space
+unbind C-b
 
 bind -n C-o select-pane -t :.+
 bind -n C-t select-window -t :+
 
+bind v copy-mode \; display "[!] copy mode"
+
 bind | split-window -h
 bind - split-window -v
 
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
+bind -r h select-pane -L
+bind -r j select-pane -D
+bind -r k select-pane -U
+bind -r l select-pane -R
 bind -r C-h select-window -t :-
 bind -r C-l select-window -t :+
 bind -r Space select-window -t :+
@@ -31,9 +33,9 @@ bind -r J resize-pane -D 5
 bind -r K resize-pane -U 5
 bind -r L resize-pane -R 5
 
-#status bar
+# status bar
 set-option -g status-position top
-set -g status-utf8 on
+# set -g status-utf8 on
 set -g status-interval 1
 set -g status-justify centre
 
@@ -54,12 +56,12 @@ set -g pane-border-bg colour232
 set -g pane-active-border-fg colour166
 set -g pane-active-border-bg colour232
 
-#command line
+# command line
 set -g message-fg colour255
 set -g message-bg colour166
 set -g message-attr bright
 
-#window list
+# window list
 setw -g window-status-fg colour241
 setw -g window-status-bg colour234
 setw -g window-status-attr dim
@@ -70,3 +72,4 @@ set-window-option -g automatic-rename off
 
 setw -g monitor-activity on
 set -g visual-activity on
+set-window-option -g mode-keys vi

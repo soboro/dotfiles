@@ -20,6 +20,8 @@ set matchtime=1
 
 set noautoindent
 set nosmartindent
+filetype plugin indent on
+
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -52,12 +54,7 @@ let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
-syntax enable
-filetype plugin indent on
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Key maps """""""""""""""""""""""""""""""""""""""""""""""""
+" Common Key Maps """""""""""""""""""""""""""""""""""""""""""""""""
 
 "<ESC>2回で検索結果のクリア
 nnoremap <ESC><ESC> :nohlsearch<CR>
@@ -77,7 +74,6 @@ inoremap { {}<Left>
 inoremap ( ()<Left>
 inoremap ' ''<Left>
 inoremap " ""<Left>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Color settings """""""""""""""""""""""""""""""""""""""""""
 
@@ -87,41 +83,41 @@ inoremap " ""<Left>
 " 挿入モード時の色指定
 " https://github.com/fuenor/vim-statusline/blob/master/insert-statusline.vim
 if !exists('g:hi_insert')
-	let g:hi_insert = 'highlight StatusLine guifg=White guibg=#F92672 gui=none ctermfg=White ctermbg=darkmagenta cterm=none'
+    let g:hi_insert = 'highlight StatusLine guifg=White guibg=#F92672 gui=none ctermfg=White ctermbg=darkmagenta cterm=none'
 endif
 
 if has('unix') && !has('gui_running')
-	inoremap <silent> <ESC> <ESC>
-	inoremap <silent> <C-[> <ESC>
+    inoremap <silent> <ESC> <ESC>
+    inoremap <silent> <C-[> <ESC>
 endif
 
 if has('syntax')
-	augroup InsertHook
-		autocmd!
-		autocmd InsertEnter * call s:StatusLine('Enter')
-		autocmd InsertLeave * call s:StatusLine('Leave')
-	augroup END
+    augroup InsertHook
+        autocmd!
+        autocmd InsertEnter * call s:StatusLine('Enter')
+        autocmd InsertLeave * call s:StatusLine('Leave')
+    augroup END
 endif
 
 let s:slhlcmd = ''
 
 function! s:StatusLine(mode)
-	if a:mode == 'Enter'
-		silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-		silent exec g:hi_insert
-	else
-		highlight clear StatusLine
-		silent exec s:slhlcmd
-	endif
+    if a:mode == 'Enter'
+        silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+        silent exec g:hi_insert
+    else
+        highlight clear StatusLine
+        silent exec s:slhlcmd
+    endif
 endfunction
 
 function! s:GetHighlight(hi)
-	redir => hl
-	exec 'highlight '.a:hi
-	redir END
-	let hl = substitute(hl, '[\r\n]', '', 'g')
-	let hl = substitute(hl, 'xxx', '', '')
-	return hl
+    redir => hl
+    exec 'highlight '.a:hi
+    redir END
+    let hl = substitute(hl, '[\r\n]', '', 'g')
+    let hl = substitute(hl, 'xxx', '', '')
+    return hl
 endfunction
 
 " カーソル行のハイライト設定
@@ -129,9 +125,9 @@ endfunction
 set cursorline
 
 augroup cch
-	autocmd! cch
-	autocmd WinLeave * set nocursorline
-	autocmd WinEnter,BufRead * set cursorline
+    autocmd! cch
+    autocmd WinLeave * set nocursorline
+    autocmd WinEnter,BufRead * set cursorline
 augroup END
 
 hi clear CursorLine
@@ -141,11 +137,11 @@ highlight CursorLine gui=underline guifg=NONE guibg=NONE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " auto complete
-set completeopt=menuone
-for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
-	  exec "imap " . k . " " . k . "<C-N><C-P>"
-endfor
-imap <expr> <TAB> pumvisible() ? "\<Down>" : "\<Tab>"
+""set completeopt=menuone
+""for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
+""    exec "imap " . k . " " . k . "<C-N><C-P>"
+""endfor
+""imap <expr> <TAB> pumvisible() ? "\<Down>" : "\<Tab>"
 
 " like XCode
 "hi Pmenu ctermbg=250
@@ -154,12 +150,80 @@ imap <expr> <TAB> pumvisible() ? "\<Down>" : "\<Tab>"
 "hi PmenuSel ctermfg=252
 
 " Dark-Orange
-hi Pmenu ctermbg=234
-hi Pmenu ctermfg=39
-hi PmenuSel ctermbg=130
-hi PmenuSel ctermfg=252
+""hi Pmenu ctermbg=234
+""hi Pmenu ctermfg=39
+""hi PmenuSel ctermbg=130
+""hi PmenuSel ctermfg=252
+""
+""hi PmenuSbar ctermbg=2
+""hi PmenuThum ctermbg=3
 
-hi PmenuSbar ctermbg=2
-hi PmenuThum ctermbg=3
+" plug-in settings """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"" dein ""
+let s:dein_dir = expand('~/.vim/dein')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+if &runtimepath !=# '/dein.vim'
+    if !isdirectory(s:dein_repo_dir)
+        execute 'git clone https://github.com/Shougo/dein.vim.git' s:dein_repo_dir
+    endif
+    execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+endif
+
+if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
+
+    let g:rc_dir = expand('~/.vim/dein')
+    let s:toml = g:rc_dir . '/dein.toml'
+    let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
+    
+    call dein#load_toml(s:toml, {'lazy': 0})
+    call dein#load_toml(s:lazy_toml, {'lazy': 1})
+
+    call dein#end()
+    call dein#save_state()
+endif
+
+if dein#check_install()
+    call dein#install()
+endif
+
+"" neocomplcache ""
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_min_syntax_length = 1
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : ''
+    \ }
+
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+      return neocomplcache#smart_close_popup() . "\<CR>"
+endfunction
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif}
+let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplete#sources#rsense#home_directory = '~/.rbenv/shims/rsense'
+
+"" NERDTree
+autocmd VimEnter * execute 'NERDTree'
+let NERDTreeShowHidden = 1
+map <C-e> :NERDTreeToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"" for issue syntax be disabled when it wtitten before dein settings
+syntax enable
+
