@@ -213,7 +213,7 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
-endif}
+endif
 let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplete#sources#rsense#home_directory = '~/.rbenv/shims/rsense'
 
