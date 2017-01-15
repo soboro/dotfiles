@@ -7,7 +7,7 @@
 
 set backup
 set backupdir=~/.vim/backup/
-set clipboard=unnamed
+"set clipboard=unnamed
 set nocompatible
 set directory=~/.vim/swap/
 set undodir=~/.vim/undo
@@ -55,6 +55,10 @@ let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
 " Common Key Maps """""""""""""""""""""""""""""""""""""""""""""""""
+
+" remap <ESC>
+noremap! <C-j> <ESC>
+noremap <C-j> <ESC>
 
 "<ESC>2回で検索結果のクリア
 nnoremap <ESC><ESC> :nohlsearch<CR>
@@ -218,12 +222,21 @@ let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplete#sources#rsense#home_directory = '~/.rbenv/shims/rsense'
 
 "" NERDTree
-autocmd VimEnter * execute 'NERDTree'
+function s:MoveToFileAtOpen()
+    call feedkeys("\<C-w>")
+    call feedkeys("\l")
+endfunction
+autocmd VimEnter * execute 'NERDTree' | call s:MoveToFileAtOpen()
+""autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let NERDTreeShowHidden = 1
 map <C-e> :NERDTreeToggle<CR>
 
+"" vim-expand-region
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"" for issue syntax be disabled when it wtitten before dein settings
+    "" for issue syntax be disabled when it wtitten before dein settings
 syntax enable
 

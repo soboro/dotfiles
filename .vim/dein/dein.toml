@@ -24,3 +24,16 @@ repo = 'Shougo/neocomplcache.vim'
 
 [[plugins]]
 repo = 'Shougo/neocomplcache-rsense.vim'
+
+[[plugins]]
+repo = 'terryma/vim-expand-region'
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'rhysd/vim-textobj-ruby'
+
+[[plugins]]
+repo = 'rhysd/neco-ruby-keyword-args'
+

@@ -7,7 +7,7 @@ export PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 # PHP5
 export PATH=/usr/local/php5/bin:$PATH
 # rbenv
-PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 if [ -f ~/.bashrc ]; then
