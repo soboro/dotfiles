@@ -47,6 +47,8 @@ set t_Co=256
 
 set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+"autocmd ColorScheme * htmlhighlightskip link MySpecialKey SpecialKey
+"autocmd VimEnter, WinEnter * let w:m_sp = matchadd("MySpecialKey", '\(\t\| \+$\)')
 
 "Cursor shape
 let &t_ti.="\e[1 q"
@@ -62,6 +64,7 @@ noremap <C-j> <ESC>
 
 "<ESC>2回で検索結果のクリア
 nnoremap <ESC><ESC> :nohlsearch<CR>
+nnoremap <C-j><C-j> :nohlsearch<CR>
 
 "タブの移動
 nnoremap <C-Tab>   gt
@@ -82,7 +85,11 @@ inoremap " ""<Left>
 " Color settings """""""""""""""""""""""""""""""""""""""""""
 
 " color scheme
-"colorscheme hybrid
+let g:hybrid_custom_term_colors = 1
+let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
+""colorscheme hybrid
+hi NonText ctermbg=NONE ctermfg=235 guibg=NONE guifg=#3a3a3a
+hi SpecialKey ctermbg=NONE ctermfg=235 guibg=NONE guifg=#3a3a3a
 
 " 挿入モード時の色指定
 " https://github.com/fuenor/vim-statusline/blob/master/insert-statusline.vim

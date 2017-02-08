@@ -37,3 +37,5 @@ repo = 'rhysd/vim-textobj-ruby'
 [[plugins]]
 repo = 'rhysd/neco-ruby-keyword-args'
 
+[[plugins]]
+repo = 'itchyny/lightline.vim'
