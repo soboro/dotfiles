@@ -20,6 +20,16 @@ hook_post_update = '''
 repo = 'scrooloose/nerdtree'
 
 [[plugins]]
+repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repo = 'kmnk/vim-unite-giti'
+
+[[plugins]]
 repo = 'Shougo/neocomplcache.vim'
 
 [[plugins]]
