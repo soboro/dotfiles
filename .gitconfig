@@ -1,8 +1,7 @@
 [user]
-	name = soboro
-	email = 
+	useConfigOnly = true
 [core]
-	excludesfile = /Users/soboro/.gitignore_global
+	excludesfile = ~/.gitignore_global
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
@@ -10,7 +9,7 @@
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [commit]
-	template = /Users/soboro/.stCommitMsg
+	template = ~/.stCommitMsg
 [alias]
 	s = status
 	a = add
