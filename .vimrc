@@ -62,25 +62,43 @@ let &t_te.="\e[0 q"
 noremap! <C-j> <ESC>
 noremap <C-j> <ESC>
 
-"<ESC>2回で検索結果のクリア
+" <ESC>2回で検索結果のクリア
 nnoremap <ESC><ESC> :nohlsearch<CR>
 nnoremap <C-j><C-j> :nohlsearch<CR>
 
-"タブの移動
+" タブの移動
 nnoremap <C-Tab>   gt
 nnoremap <C-S-Tab> gT
 
-"xでの削除をレジスタに入れない
+" xでの削除をレジスタに入れない
 nnoremap x "_x
 
-inoremap {<Enter> {}<Left><CR><ESC><S-o>
-inoremap [<Enter> []<Left><CR><ESC><S-o>
-inoremap (<Enter> ()<Left><CR><ESC><S-o>
+" 括弧のオートコンプリート
+inoremap {<CR> {}<Left><CR><ESC><S-o>
+inoremap [<CR> []<Left><CR><ESC><S-o>
+inoremap (<CR> ()<Left><CR><ESC><S-o>
 inoremap [ []<Left>
 inoremap { {}<Left>
 inoremap ( ()<Left>
 inoremap ' ''<Left>
 inoremap " ""<Left>
+
+" ノーマルモードで改行挿入
+nnoremap <CR> I<CR><ESC>
+
+" ノーマルモード移行時にペーストモード解除
+autocmd InsertLeave * set nopaste
+
+" 現在開いているファイルを実行 (only php|ruby|go)
+function! ExecuteCurrentFile()
+    if &filetype == 'php' || &filetype == 'ruby'
+        exe '!' . &filetype . ' %'
+    endif
+    if &filetype == 'go'
+        exe '!go run *.go'
+    endif
+endfunction
+nnoremap <Space> :call ExecuteCurrentFile()<CR>
 
 " Color settings """""""""""""""""""""""""""""""""""""""""""
 
@@ -233,7 +251,7 @@ function s:MoveToFileAtOpen()
     call feedkeys("\<C-w>")
     call feedkeys("\l")
 endfunction
-autocmd VimEnter * execute 'NERDTree' | call s:MoveToFileAtOpen()
+""autocmd VimEnter * execute 'NERDTree' | call s:MoveToFileAtOpen()
 ""autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let NERDTreeShowHidden = 1
 map <C-e> :NERDTreeToggle<CR>
