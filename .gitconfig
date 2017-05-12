@@ -3,6 +3,7 @@
 	email = 
 [core]
 	excludesfile = /Users/soboro/.gitignore_global
+	editor = /Applications/MacVim.app/Contents/MacOS/vim
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
