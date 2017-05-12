@@ -2,6 +2,7 @@
 .vim/backup/
 .vim/swap/
 .vim/dein/.cache
+.vim/dein/cache_vim
 *.un~
 *.old
 *.org
