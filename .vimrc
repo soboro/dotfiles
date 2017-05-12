@@ -253,7 +253,7 @@ function s:MoveToFileAtOpen()
 endfunction
 ""autocmd VimEnter * execute 'NERDTree' | call s:MoveToFileAtOpen()
 ""autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let NERDTreeShowHidden = 1
+""let NERDTreeShowHidden = 1
 map <C-e> :NERDTreeToggle<CR>
 
 "" vim-expand-region
